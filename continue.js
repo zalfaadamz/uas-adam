@@ -23,7 +23,7 @@ router.post('/save',verifyAdmin, async (req, res) => {
   }
 });
 
-router.get('/continue', authenticateToken, async (req, res) => {
+router.get('/continue', verifyAdmin, async (req, res) => {
   try {
     const userRef = db.collection('users').doc(req.user.uid);
     const snapshot = await userRef.collection('listenedPodcasts').orderBy('lastPlayed', 'desc').get();
