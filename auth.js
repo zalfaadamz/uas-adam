@@ -6,14 +6,15 @@ const jwt = require('jsonwebtoken');
 const {db,admin} = require('./firebase');
 
 router.post('/signup', async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
     const userRef = db.collection('users').doc();
     await userRef.set({
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      role
     });
     res.status(201).send('User created successfully');
   } catch (error) {
