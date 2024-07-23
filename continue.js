@@ -1,10 +1,10 @@
 // routes/continue.js
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('./admin');
+const verifyAdmin = require('./admin');
 const {db,admin} = require('./firebase');
 
-router.post('/save', authenticateToken, async (req, res) => {
+router.post('/save',verifyAdmin, async (req, res) => {
   const { episodeId, position } = req.body;
 
   try {

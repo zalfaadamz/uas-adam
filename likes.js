@@ -1,10 +1,10 @@
 // routes/likes.js
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('./admin');
+const verifyAdmin = require('./admin');
 const {db,admin} = require('./firebase');
 
-router.post('/like', authenticateToken, async (req, res) => {
+router.post('/like', verifyAdmin,async (req, res) => {
   const { episodeId } = req.body;
 
   try {
@@ -24,7 +24,7 @@ router.post('/like', authenticateToken, async (req, res) => {
   }
 });
 
-router.get('/liked', authenticateToken, async (req, res) => {
+router.get('/liked', verifyAdmin, async (req, res) => {
   try {
     const userRef = db.collection('users').doc(req.user.uid);
     const snapshot = await userRef.collection('likedPodcasts').get();

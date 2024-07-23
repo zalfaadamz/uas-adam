@@ -1,10 +1,10 @@
 // routes/discovery.js
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('./admin');
+const verifyAdmin = require('./admin');
 const {db,admin} = require('./firebase');
 
-router.get('/discovery', authenticateToken, async (req, res) => {
+router.get('/discovery', verifyAdmin,async (req, res) => {
   try {
     const podcastsRef = db.collection('podcasts');
     const snapshot = await podcastsRef.get();
